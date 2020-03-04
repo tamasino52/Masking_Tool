@@ -5,7 +5,7 @@ Segmentation masking tool using watershed transform. Draw your object easily!
 # Requirement
 You should move to 'Masking_Tool' folder, then input this command on console.
 ```
-pip install requirement.txt
+pip install -r requirement.txt
 ```
 # Open file
 After download all library, open python file according to language.
