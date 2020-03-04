@@ -6,9 +6,19 @@ from PyQt5 import uic
 import os
 import cv2
 import numpy as np
+import argparse
 
-# UI 파일 로드
-form_class = uic.loadUiType("main(kor).ui")[0]
+# Args 속성 정의
+parser = argparse.ArgumentParser()
+parser.add_argument('--korean', help='Use Korean Language', action="store_true")
+args = parser.parse_args()
+
+# 언어별로 UI 파일 로드
+if args.korean:
+    form_class = uic.loadUiType("main(kor).ui")[0]
+else:
+    form_class = uic.loadUiType("main(eng).ui")[0]
+
 
 # 윈도우 클래스 정의
 class WindowClass(QMainWindow, form_class):
@@ -138,22 +148,22 @@ class WindowClass(QMainWindow, form_class):
                 img = cv2.cvtColor(self.segmentation, cv2.COLOR_RGB2BGR)
                 path = self.maskPath + '/' + self.lineEdit_img.text()
                 if self.imwrite(path, img):
-                    print(path, '저장 성공')
+                    print(path, 'Success to save')
                 else:
-                    print(path, '저장 실패')
+                    print(path, 'Failed to save')
                 self.updateMaskList()
             except AssertionError:
                 msg = QMessageBox()
                 msg.setIcon(QMessageBox.Warning)
-                msg.setText("저장할 이미지가 없습니다")
-                msg.setWindowTitle("오류")
+                msg.setText("There is no image to save")
+                msg.setWindowTitle("Error")
                 msg.setStandardButtons(QMessageBox.Ok)
                 msg.exec_()
         else:
             msg = QMessageBox()
             msg.setIcon(QMessageBox.Warning)
-            msg.setText("이미지가 수정되지 않았습니다")
-            msg.setWindowTitle("경고")
+            msg.setText("Image is not modified")
+            msg.setWindowTitle("Warning")
             msg.setStandardButtons(QMessageBox.Ok)
             msg.exec_()
 
@@ -468,7 +478,7 @@ class WindowClass(QMainWindow, form_class):
                 pix_map = QPixmap('no_image.jpg')
                 pix_map = pix_map.scaled(self.label_canvasImg.size(), Qt.IgnoreAspectRatio)
                 self.label_canvasImg.setPixmap(pix_map)
-        except AttributeError:
+        except AttributeError or AssertionError:
             pass
 
     # 현재 이미지 갱신
@@ -508,7 +518,7 @@ class WindowClass(QMainWindow, form_class):
                 pix_map = QPixmap('no_image.jpg')
                 pix_map = pix_map.scaled(self.label_lastImg.size(), Qt.IgnoreAspectRatio)
                 self.label_lastImg.setPixmap(pix_map)
-        except AttributeError:
+        except AttributeError or AssertionError:
             pass
 
     # 다음 이미지 불러오기
@@ -526,7 +536,7 @@ class WindowClass(QMainWindow, form_class):
                 pix_map = QPixmap('no_image.jpg')
                 pix_map = pix_map.scaled(self.label_nextImg.size(), Qt.IgnoreAspectRatio)
                 self.label_nextImg.setPixmap(pix_map)
-        except AttributeError:
+        except AttributeError or AssertionError:
             pass
 
     # 세그멘테이션 이미지 불러오기
@@ -546,7 +556,7 @@ class WindowClass(QMainWindow, form_class):
                 pix_map = pix_map.scaled(self.label_segImg.size(), Qt.IgnoreAspectRatio)
                 self.label_segImg.setPixmap(pix_map)
                 self.updateCurrentMaskPanel()
-        except AttributeError:
+        except AttributeError or AssertionError:
             pass
 
     # 한글 경로 처리 (읽기) - OpenCV가 한글 경로 처리를 못해서 따로 처리
