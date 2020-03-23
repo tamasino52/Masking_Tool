@@ -172,7 +172,7 @@ class WindowClass(QMainWindow, form_class):
         if self.isModified:
             try:
                 img = cv2.cvtColor(self.segmentation, cv2.COLOR_RGB2BGR)
-                path = self.maskPath + '/' + self.lineEdit_img.text()
+                path = self.maskPath + '/' + os.path.splitext(self.lineEdit_img.text())[0] + '.bmp'
                 if self.imwrite(path, img):
                     print(path, 'Success to save')
                 else:
