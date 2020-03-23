@@ -49,3 +49,6 @@ python main.py --korean
 
 # Caution
 In your Image folder, It does not work if there are files other than images. This program does not guarantee that JPG, PNG, GIF, JPEG files or other image formats are supported. Mask files are always stored in the same format as image files. We developed in Python 3.6 and did not test running in other versions. If you leave a comment because of a problem while using it, I will correct it. Thanks.
+
+# Update
+It used to be 12 colors, but now it's 21 colors. Previously, the stored mask type was the same as the existing image type. However, we found a bug with mixed colors in the edges and modified it to be stored only in a bitmap file.
