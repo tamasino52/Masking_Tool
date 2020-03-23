@@ -5,7 +5,7 @@ Segmentation masking tool using watershed transform. Draw your object easily!
 # Requirement
 You should move to 'Masking_Tool' folder, then input this command on console.
 ```
-pip install requirement.txt
+pip install -r requirement.txt
 ```
 # Open file
 After download all library, open python file according to language.
@@ -46,5 +46,6 @@ python main.py --korean
 <p align="center">
   <img src="/test/6.JPG">
 </p>
+
 # Caution
 In your Image folder, It does not work if there are files other than images. This program does not guarantee that JPG, PNG, GIF, JPEG files or other image formats are supported. Mask files are always stored in the same format as image files. We developed in Python 3.6 and did not test running in other versions. If you leave a comment because of a problem while using it, I will correct it. Thanks.
